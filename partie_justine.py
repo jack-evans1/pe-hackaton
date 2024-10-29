@@ -6,18 +6,18 @@ import numpy as np
 import IPython
 
 df= pd.read_csv('pe-hackaton/data/happiness2022.csv')
-#print(df.head(5))
-#df = df_long.head(44)
+#Je voulais regarder si l'écart entre positif et non-négatif (d'où le 1-Negative affect) par pays était bien nulle
 df['écart entre positif et non negatif'] = 1-df['Negative affect']- df['Positive affect']
-pays= df.groupby(['Country name'])
 
-print("par pays" , pays.head(10))
-pays_moy = pays.mean()
+by_pays= df.groupby(['Country name'])
 
-
-print("pays moyenné", pays_moy.head(10))
-
-df.plot.scatter(x = 'Positive affect', y = 'Negative affect', by = 'Country name')
+#ce fut un échec
+country=df['Country name'].unique()
+plt.figure()
+#j'ai essayé plutôt de tracer un nuage de point positif en fonction de négatif par pays et de regarder où ces nuages se situent par rapport à la droite y = 1-x 
+for pays in country :
+    by_pays.get_group(pays).plot.scatter(x = 'Positive affect', y = ['Negative affect'])
 plt.plot([0,1],[1,0], color = 'Red')
-#plt.tight_layout()
+plt.tight_layout()
 plt.show()
+#problème il m'affiche les figures de chaque pays séparemment donc 166 figures...
