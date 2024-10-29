@@ -27,10 +27,10 @@ def donnees_pays(pays,df): #cree un df de groupby selon un pays
 
 
 
-def trace_esp_pays(pays, df): #trace un graphe de l'evolution de l'esperence de vie dans une liste de pays
+def trace_esp_pays(listepays, df): #trace un graphe de l'evolution de l'esperence de vie dans une liste de pays
     fig = plt.figure()
 
-    for pays in pays:
+    for pays in listepays:
         plt.plot(donnees_pays(pays,df)['year'], donnees_pays(pays,df)['Healthy life expectancy at birth'], label = pays, linestyle='-', marker='o')
 
     plt.legend()
